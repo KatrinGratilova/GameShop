@@ -32,7 +32,7 @@ public class GameServiceTest {
     }
 
     @Test
-    public void deleteById_Ok(){
+    public void deleteById_Ok() {
         Game game = Game.builder()
                 .id(1)
                 .name("Game 1")
@@ -48,7 +48,7 @@ public class GameServiceTest {
     }
 
     @Test
-    public void findByName_Ok(){
+    public void findByName_Ok() {
         Game expected = Game.builder()
                 .id(1)
                 .name("Game 1")
@@ -68,7 +68,7 @@ public class GameServiceTest {
     }
 
     @Test
-    public void findByCostRange_Ok(){
+    public void findByCostRange_Ok() {
         Game expected = Game.builder()
                 .id(1)
                 .name("Game 1")
@@ -111,15 +111,15 @@ public class GameServiceTest {
     public void sortByCreationDate_Ok() {
         List<Game> games = new ArrayList<>(List.of(
                 Game.builder()
-                .id(1)
-                .name("Game 1")
-                .creationDate(Date.valueOf("2024-12-12"))
-                .build(),
+                        .id(1)
+                        .name("Game 1")
+                        .creationDate(Date.valueOf("2024-12-12"))
+                        .build(),
                 Game.builder()
-                .id(2)
-                .name("Game 2")
-                .creationDate(Date.valueOf("2023-03-06"))
-                .build()));
+                        .id(2)
+                        .name("Game 2")
+                        .creationDate(Date.valueOf("2023-03-06"))
+                        .build()));
         GameService clientService = new GameService(new GameRepositoryMock(new ArrayList<>(games)));
 
         List<Game> expected = new ArrayList<>(List.of(

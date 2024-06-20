@@ -3,13 +3,12 @@ package org.katrin.repository;
 import org.katrin.entity.Game;
 import org.katrin.repository.dao.GameRepository;
 
-import java.sql.Date;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class GameRepositoryMock implements GameRepository {
-    private List<Game> games;
+    private final List<Game> games;
 
     public GameRepositoryMock(List<Game> games) {
         this.games = games;
