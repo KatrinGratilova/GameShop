@@ -1,6 +1,7 @@
 package org.katrin.controller;
 
 import org.katrin.GameMessages;
+import org.katrin.MenuMessages;
 import org.katrin.MenuOption;
 import org.katrin.entity.Game;
 import org.katrin.service.GameService;
@@ -27,7 +28,6 @@ public class GameController {
     public MenuOption addNewGame() {
         return () -> {
             Game.GameBuilder builder = Game.builder();
-
             out.print(GameMessages.NAME.getMessage());
             builder.name(in.nextLine());
             out.print(GameMessages.TYPE.getMessage());
@@ -54,7 +54,7 @@ public class GameController {
         };
     }
 
-    public MenuOption filterByName() {
+    public MenuOption filterByName(){
         return () -> {
             out.print(GameMessages.NAME.getMessage());
             service.findByName(in.nextLine()).forEach(out::println);
@@ -78,5 +78,12 @@ public class GameController {
 
     public MenuOption sortByCreationDate() {
         return () -> service.sortByCreationDate().forEach(out::println);
+    }
+
+    public MenuOption exit(){
+        return () -> {
+            out.println(MenuMessages.GOODBYE.getMessage());
+            System.exit(1);
+        };
     }
 }

@@ -1,7 +1,7 @@
 package org.katrin.controller;
 
 import org.katrin.MenuOption;
-import org.katrin.Messages;
+import org.katrin.MenuMessages;
 import org.katrin.entity.Client;
 import org.katrin.service.ClientService;
 
@@ -22,24 +22,24 @@ public class ClientController {
     public MenuOption signIn() {
         return () -> {
             Client.ClientBuilder builder = Client.builder();
-            out.print(Messages.CONTACT_DATA.getMessage());
+            out.print(MenuMessages.CONTACT_DATA.getMessage());
             builder.contactData(in.nextLine());
-            out.print(Messages.PASSWORD.getMessage());
+            out.print(MenuMessages.PASSWORD.getMessage());
             builder.password(in.nextLine());
-            out.printf(Messages.WELCOME.getMessage(), clientService.findClient(builder.build()).getFullName());
+            out.printf(MenuMessages.WELCOME.getMessage(), clientService.findClient(builder.build()).getFullName());
         };
     }
 
     public MenuOption signUp() {
         return () -> {
             Client.ClientBuilder builder = Client.builder();
-            out.print(Messages.FULL_NAME.getMessage());
+            out.print(MenuMessages.FULL_NAME.getMessage());
             builder.fullName(in.nextLine());
-            out.print(Messages.CONTACT_DATA.getMessage());
+            out.print(MenuMessages.CONTACT_DATA.getMessage());
             builder.contactData(in.nextLine());
-            out.print(Messages.PASSWORD.getMessage());
+            out.print(MenuMessages.PASSWORD.getMessage());
             builder.password(in.nextLine());
-            out.printf(Messages.WELCOME.getMessage(), clientService.createClient(builder.build()).getFullName());
+            out.printf(MenuMessages.WELCOME.getMessage(), clientService.createClient(builder.build()).getFullName());
         };
     }
 }

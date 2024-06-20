@@ -2,7 +2,7 @@ package org.katrin.repository.dao;
 
 import org.katrin.entity.Client;
 import org.katrin.exception.ClientAlreadyExistsException;
-import org.katrin.exception.ClientDoesNotExist;
+import org.katrin.exception.EntityInstanceDoesNotExist;
 
 
 public interface ClientRepository {
@@ -10,5 +10,5 @@ public interface ClientRepository {
 
     Client getById(int id);
 
-    Client getByContactDataAndPassword(Client client) throws ClientDoesNotExist;
+    Client getByContactDataAndPassword(Client client) throws EntityInstanceDoesNotExist;
 }

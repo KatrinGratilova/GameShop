@@ -3,7 +3,9 @@ package org.katrin.repository;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
+import org.katrin.MenuMessages;
 import org.katrin.entity.Game;
+import org.katrin.exception.EntityInstanceDoesNotExist;
 import org.katrin.repository.dao.GameRepository;
 
 import java.util.List;
@@ -50,13 +52,20 @@ public class GameRepositoryImpl implements GameRepository {
     }
 
     @Override
-    public void deleteById(int id) {
+    public void deleteById(int id) throws EntityInstanceDoesNotExist {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
         Game game = session.get(Game.class, id);
-        session.remove(game);
-        session.getTransaction().commit();
-        session.close();
+        try {
+            session.remove(game);
+            session.getTransaction().commit();
+        } catch (IllegalArgumentException ex) {
+            session.getTransaction().rollback();
+            System.err.println(ex.getMessage());
+            throw new EntityInstanceDoesNotExist(MenuMessages.GAME_DOES_NOT_EXIST.getMessage(), ex.getCause());
+        } finally {
+            session.close();
+        }
     }
 
     @Override

@@ -8,8 +8,8 @@ import org.katrin.entity.Game;
 public class SessionFactorySingleton {
     private static SessionFactory sessionFactory;
 
-    public static  SessionFactory getSessionFactory(){
-        if (sessionFactory == null || sessionFactory.isClosed()){
+    public static SessionFactory getSessionFactory() {
+        if (sessionFactory == null || sessionFactory.isClosed()) {
             Configuration configuration = new Configuration();
 
             configuration.setProperty("hibernate.connection.driver_class", "org.postgresql.Driver");

@@ -1,6 +1,7 @@
 package org.katrin.service;
 
 import org.katrin.entity.Game;
+import org.katrin.exception.EntityInstanceDoesNotExist;
 import org.katrin.repository.dao.GameRepository;
 
 import java.util.List;
@@ -16,11 +17,11 @@ public class GameService {
         return repository.add(game);
     }
 
-    public void deleteById(int id) {
+    public void deleteById(int id) throws EntityInstanceDoesNotExist {
         repository.deleteById(id);
     }
 
-    public List<Game> findByName(String name) {
+    public List<Game> findByName(String name){
         return repository.getByName(name);
     }
 

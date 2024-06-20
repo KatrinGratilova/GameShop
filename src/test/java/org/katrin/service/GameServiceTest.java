@@ -3,6 +3,7 @@ package org.katrin.service;
 import org.junit.Assert;
 import org.junit.Test;
 import org.katrin.entity.Game;
+import org.katrin.exception.EntityInstanceDoesNotExist;
 import org.katrin.repository.GameRepositoryMock;
 
 import java.sql.Date;
@@ -32,7 +33,7 @@ public class GameServiceTest {
     }
 
     @Test
-    public void deleteById_Ok() {
+    public void deleteById_Ok() throws EntityInstanceDoesNotExist {
         Game game = Game.builder()
                 .id(1)
                 .name("Game 1")

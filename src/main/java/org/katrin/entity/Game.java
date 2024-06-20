@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.sql.Date;
 
@@ -42,5 +43,6 @@ public class Game {
 
     @Column(name = "creation_date")
     @ColumnDefault("CURRENT_DATE")
+    @CreationTimestamp
     private Date creationDate;
 }

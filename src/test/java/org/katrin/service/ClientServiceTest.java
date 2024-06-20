@@ -4,7 +4,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.katrin.entity.Client;
 import org.katrin.exception.ClientAlreadyExistsException;
-import org.katrin.exception.ClientDoesNotExist;
+import org.katrin.exception.EntityInstanceDoesNotExist;
 import org.katrin.repository.ClientRepositoryMock;
 
 import java.util.ArrayList;
@@ -34,7 +34,7 @@ public class ClientServiceTest {
     }
 
     @Test
-    public void findClient_Ok() throws ClientDoesNotExist {
+    public void findClient_Ok() throws EntityInstanceDoesNotExist {
         Client expected = Client.builder()
                 .id(1)
                 .fullName("Client 1")
