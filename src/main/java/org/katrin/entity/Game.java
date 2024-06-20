@@ -45,4 +45,10 @@ public class Game {
     @ColumnDefault("CURRENT_DATE")
     @CreationTimestamp
     private Date creationDate;
+
+    public String toString() {
+        return "id - " + id + ", name - " + name + ", type - " + type + ", release date - " + releaseDate +
+                ", rating - " + rating + ", cost - " + cost + ", description - " + description + ", creation date - "
+                + creationDate;
+    }
 }

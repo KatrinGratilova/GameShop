@@ -2,10 +2,12 @@ package org.katrin;
 
 import org.katrin.controller.ClientController;
 import org.katrin.controller.GameController;
+import org.katrin.controller.MenuOption;
 import org.katrin.exception.ClientAlreadyExistsException;
 import org.katrin.exception.EntityInstanceDoesNotExist;
 import org.katrin.repository.ClientRepositoryImpl;
 import org.katrin.repository.GameRepositoryImpl;
+import org.katrin.repository.SessionFactorySingleton;
 import org.katrin.service.ClientService;
 import org.katrin.service.GameService;
 
@@ -18,7 +20,7 @@ public class GameShopApplication {
     Scanner in = new Scanner(System.in);
     ClientRepositoryImpl clientRepository = new ClientRepositoryImpl(SessionFactorySingleton.getSessionFactory());
     ClientService clientService = new ClientService(clientRepository);
-    ClientController clientController = new ClientController(clientService, out, in);
+    ClientController clientController = new ClientController(in, out, clientService);
     GameRepositoryImpl gameRepository = new GameRepositoryImpl(SessionFactorySingleton.getSessionFactory());
     GameService gameService = new GameService(gameRepository);
     GameController gameController = new GameController(in, out, gameService);
@@ -26,7 +28,7 @@ public class GameShopApplication {
     public void main(String[] args) {
         GameShopApplication main = new GameShopApplication();
         main.userAuthorization();
-        main.optionSelection();
+        main.menuOptionSelection();
     }
 
     public void userAuthorization() {
@@ -42,7 +44,7 @@ public class GameShopApplication {
         while (option <= 0 || option > authorizationOptions.size());
     }
 
-    public void optionSelection() {
+    public void menuOptionSelection() {
         Map<Integer, MenuOption> menuOptions = Map.of(
                 1, gameController.showAllGames(),
                 2, gameController.addNewGame(),

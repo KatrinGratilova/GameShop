@@ -71,8 +71,10 @@ public class GameRepositoryImpl implements GameRepository {
     @Override
     public List<Game> getByName(String name) {
         try (Session session = sessionFactory.openSession()) {
+            session.beginTransaction();
             Query<Game> query = session.createQuery(selectWhereName);
             query.setParameter("name", name);
+            session.getTransaction().commit();
             return query.list();
         }
     }
@@ -80,9 +82,11 @@ public class GameRepositoryImpl implements GameRepository {
     @Override
     public List<Game> getByCostRange(double min, double max) {
         try (Session session = sessionFactory.openSession()) {
+            session.beginTransaction();
             Query<Game> query = session.createQuery(selectWhereCostBetween);
             query.setParameter("min", min);
             query.setParameter("max", max);
+            session.getTransaction().commit();
             return query.list();
         }
     }
@@ -90,8 +94,10 @@ public class GameRepositoryImpl implements GameRepository {
     @Override
     public List<Game> getByType(String type) {
         try (Session session = sessionFactory.openSession()) {
+            session.beginTransaction();
             Query<Game> query = session.createQuery(selectWhereType);
             query.setParameter("type", type);
+            session.getTransaction().commit();
             return query.list();
         }
     }
@@ -99,7 +105,9 @@ public class GameRepositoryImpl implements GameRepository {
     @Override
     public List<Game> sortByCreationDate() {
         try (Session session = sessionFactory.openSession()) {
+            session.beginTransaction();
             Query<Game> query = session.createQuery(selectSortedByCreationDate);
+            session.getTransaction().commit();
             return query.list();
         }
     }
@@ -107,7 +115,9 @@ public class GameRepositoryImpl implements GameRepository {
     @Override
     public List<Game> getAll() {
         try (Session session = sessionFactory.openSession()) {
+            session.beginTransaction();
             Query<Game> query = session.createQuery(selectAll);
+            session.getTransaction().commit();
             return query.list();
         }
     }

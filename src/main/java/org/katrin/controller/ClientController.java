@@ -1,6 +1,5 @@
 package org.katrin.controller;
 
-import org.katrin.MenuOption;
 import org.katrin.MenuMessages;
 import org.katrin.entity.Client;
 import org.katrin.service.ClientService;
@@ -9,14 +8,14 @@ import java.io.PrintStream;
 import java.util.Scanner;
 
 public class ClientController {
-    ClientService clientService;
-    PrintStream out;
     Scanner in;
+    PrintStream out;
+    ClientService clientService;
 
-    public ClientController(ClientService clientService, PrintStream out, Scanner in) {
-        this.clientService = clientService;
-        this.out = out;
+    public ClientController(Scanner in, PrintStream out, ClientService clientService) {
         this.in = in;
+        this.out = out;
+        this.clientService = clientService;
     }
 
     public MenuOption signIn() {
@@ -26,7 +25,9 @@ public class ClientController {
             builder.contactData(in.nextLine());
             out.print(MenuMessages.PASSWORD.getMessage());
             builder.password(in.nextLine());
-            out.printf(MenuMessages.WELCOME.getMessage(), clientService.findClient(builder.build()).getFullName());
+
+            Client client = clientService.findClient(builder.build());
+            out.printf(MenuMessages.WELCOME.getMessage(), client.getFullName());
         };
     }
 
@@ -39,7 +40,9 @@ public class ClientController {
             builder.contactData(in.nextLine());
             out.print(MenuMessages.PASSWORD.getMessage());
             builder.password(in.nextLine());
-            out.printf(MenuMessages.WELCOME.getMessage(), clientService.createClient(builder.build()).getFullName());
+
+            Client client = clientService.createClient(builder.build());
+            out.printf(MenuMessages.WELCOME.getMessage(), client.getFullName());
         };
     }
 }

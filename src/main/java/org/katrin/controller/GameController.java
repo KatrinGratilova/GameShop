@@ -2,12 +2,12 @@ package org.katrin.controller;
 
 import org.katrin.GameMessages;
 import org.katrin.MenuMessages;
-import org.katrin.MenuOption;
 import org.katrin.entity.Game;
 import org.katrin.service.GameService;
 
 import java.io.PrintStream;
 import java.sql.Date;
+import java.util.List;
 import java.util.Scanner;
 
 public class GameController {
@@ -22,7 +22,12 @@ public class GameController {
     }
 
     public MenuOption showAllGames() {
-        return () -> service.findAll().forEach(out::println);
+        return () -> {
+            List<Game> games = service.findAll();
+            if (!games.isEmpty())
+                games.forEach(out::println);
+            else out.println(GameMessages.NO_GAMES_IN_DATABASE.getMessage());
+        };
     }
 
     public MenuOption addNewGame() {
@@ -46,7 +51,7 @@ public class GameController {
         };
     }
 
-    public MenuOption deleteGame(){
+    public MenuOption deleteGame() {
         return () -> {
             showAllGames().optionAction();
             out.print(GameMessages.INPUT_ID_TO_DELETE.getMessage());
@@ -54,36 +59,50 @@ public class GameController {
         };
     }
 
-    public MenuOption filterByName(){
+    public MenuOption filterByName() {
         return () -> {
             out.print(GameMessages.NAME.getMessage());
-            service.findByName(in.nextLine()).forEach(out::println);
+            List<Game> games = service.findByName(in.nextLine());
+            if (!games.isEmpty())
+                games.forEach(out::println);
+            else out.println(GameMessages.GAMES_NOT_FOUND.getMessage());
         };
     }
 
     public MenuOption filterByCost() {
         return () -> {
             out.print(GameMessages.MIN_COST.getMessage());
+            double min = Double.parseDouble(in.nextLine());
             out.print(GameMessages.MAX_COST.getMessage());
-            service.findByCostRange(Double.parseDouble(in.nextLine()), Double.parseDouble(in.nextLine())).forEach(out::println);
+            double max = Double.parseDouble(in.nextLine());
+
+            List<Game> games = service.findByCostRange(min, max);
+            if (!games.isEmpty())
+                games.forEach(out::println);
+            else out.println(GameMessages.GAMES_NOT_FOUND.getMessage());
         };
     }
 
     public MenuOption filterByType() {
         return () -> {
             out.print(GameMessages.TYPE.getMessage());
-            service.findByType(in.nextLine()).forEach(out::println);
+            List<Game> games = service.findByType(in.nextLine());
+            if (!games.isEmpty())
+                games.forEach(out::println);
+            else out.println(GameMessages.GAMES_NOT_FOUND.getMessage());
         };
     }
 
     public MenuOption sortByCreationDate() {
-        return () -> service.sortByCreationDate().forEach(out::println);
+        return () -> {
+            List<Game> games = service.sortByCreationDate();
+            if (!games.isEmpty())
+                games.forEach(out::println);
+            else out.println(GameMessages.NO_GAMES_IN_DATABASE.getMessage());
+        };
     }
 
-    public MenuOption exit(){
-        return () -> {
-            out.println(MenuMessages.GOODBYE.getMessage());
-            System.exit(1);
-        };
+    public MenuOption exit() {
+        return () -> out.println(MenuMessages.GOODBYE.getMessage());
     }
 }

@@ -1,4 +1,4 @@
-package org.katrin;
+package org.katrin.repository;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;

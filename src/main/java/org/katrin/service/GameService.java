@@ -21,7 +21,7 @@ public class GameService {
         repository.deleteById(id);
     }
 
-    public List<Game> findByName(String name){
+    public List<Game> findByName(String name) {
         return repository.getByName(name);
     }
 
