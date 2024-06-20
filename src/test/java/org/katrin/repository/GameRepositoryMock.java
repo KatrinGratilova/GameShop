@@ -3,6 +3,8 @@ package org.katrin.repository;
 import org.katrin.entity.Game;
 import org.katrin.repository.dao.GameRepository;
 
+import java.sql.Date;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -22,6 +24,7 @@ public class GameRepositoryMock implements GameRepository {
 
     @Override
     public void deleteById(int id) {
+        games.remove(id - 1);
     }
 
     @Override
@@ -31,21 +34,22 @@ public class GameRepositoryMock implements GameRepository {
 
     @Override
     public List<Game> getByCostRange(double min, double max) {
-        return null;
+        return games.stream().filter(g -> g.getCost() >= min && g.getCost() <= max).collect(Collectors.toList());
     }
 
     @Override
     public List<Game> getByType(String type) {
-        return null;
+        return games.stream().filter(g -> g.getType().equals(type)).collect(Collectors.toList());
     }
 
     @Override
     public List<Game> sortByCreationDate() {
-        return null;
+        games.sort(Comparator.comparing(Game::getCreationDate));
+        return games;
     }
 
     @Override
     public List<Game> getAll() {
-        return null;
+        return games;
     }
 }
