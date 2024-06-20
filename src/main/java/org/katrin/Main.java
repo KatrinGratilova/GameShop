@@ -4,8 +4,8 @@ import org.katrin.controller.ClientController;
 import org.katrin.controller.GameController;
 import org.katrin.exception.ClientAlreadyExistsException;
 import org.katrin.exception.ClientDoesNotExist;
-import org.katrin.repository.ClientRepository;
-import org.katrin.repository.GameRepository;
+import org.katrin.repository.ClientRepositoryImpl;
+import org.katrin.repository.GameRepositoryImpl;
 import org.katrin.service.ClientService;
 import org.katrin.service.GameService;
 
@@ -16,10 +16,10 @@ import java.util.Scanner;
 public class Main {
     PrintStream out = System.out;
     Scanner in = new Scanner(System.in);
-    ClientRepository clientRepository = new ClientRepository(SessionFactorySingleton.getSessionFactory());
+    ClientRepositoryImpl clientRepository = new ClientRepositoryImpl(SessionFactorySingleton.getSessionFactory());
     ClientService clientService = new ClientService(clientRepository);
     ClientController clientController = new ClientController(clientService, out, in);
-    GameRepository gameRepository = new GameRepository(SessionFactorySingleton.getSessionFactory());
+    GameRepositoryImpl gameRepository = new GameRepositoryImpl(SessionFactorySingleton.getSessionFactory());
     GameService gameService = new GameService(gameRepository);
     GameController gameController = new GameController(in, out, gameService);
 

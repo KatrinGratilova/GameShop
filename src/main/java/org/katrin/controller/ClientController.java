@@ -39,8 +39,7 @@ public class ClientController {
             builder.contactData(in.nextLine());
             out.print(Messages.PASSWORD.getMessage());
             builder.password(in.nextLine());
-            clientService.createClient(builder.build());
-            out.printf(Messages.WELCOME.getMessage(), clientService.findClient(builder.build()).getFullName());
+            out.printf(Messages.WELCOME.getMessage(), clientService.createClient(builder.build()).getFullName());
         };
     }
 }

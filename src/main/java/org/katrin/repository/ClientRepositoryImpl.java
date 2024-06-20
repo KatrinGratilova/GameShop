@@ -9,8 +9,9 @@ import org.katrin.exception.ClientAlreadyExistsException;
 import org.katrin.Messages;
 import org.katrin.entity.Client;
 import org.katrin.exception.ClientDoesNotExist;
+import org.katrin.repository.dao.ClientRepository;
 
-public class ClientRepository {
+public class ClientRepositoryImpl implements ClientRepository {
     private final SessionFactory sessionFactory;
 
     private final String selectWhereContactDataAndPassword = """
@@ -18,10 +19,11 @@ public class ClientRepository {
             FROM Client c 
             WHERE password = :password AND contactData = :contactData""";
 
-    public ClientRepository(SessionFactory sessionFactory) {
+    public ClientRepositoryImpl(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }
 
+    @Override
     public Client add(Client client) throws ClientAlreadyExistsException {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
@@ -38,6 +40,7 @@ public class ClientRepository {
         return client;
     }
 
+    @Override
     public Client getById(int id) {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
@@ -47,6 +50,7 @@ public class ClientRepository {
         return client;
     }
 
+    @Override
     public Client getByContactDataAndPassword(Client client) throws ClientDoesNotExist {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
@@ -65,9 +69,7 @@ public class ClientRepository {
         } finally {
             session.close();
         }
-
         return foundClient;
     }
-
 
 }

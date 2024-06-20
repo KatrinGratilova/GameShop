@@ -1,12 +1,10 @@
 package org.katrin.controller;
 
-import jakarta.persistence.criteria.CriteriaBuilder;
 import org.katrin.GameMessages;
 import org.katrin.MenuOption;
 import org.katrin.entity.Game;
 import org.katrin.service.GameService;
 
-import java.awt.*;
 import java.io.PrintStream;
 import java.sql.Date;
 import java.util.Scanner;
@@ -50,37 +48,35 @@ public class GameController {
 
     public MenuOption deleteGame(){
         return () -> {
-            this.showAllGames();
-            out.println(GameMessages.INPUT_ID_TO_DELETE.getMessage());
+            showAllGames().optionAction();
+            out.print(GameMessages.INPUT_ID_TO_DELETE.getMessage());
             service.deleteById(Integer.parseInt(in.nextLine()));
         };
     }
 
     public MenuOption filterByName() {
         return () -> {
-            out.println(GameMessages.NAME.getMessage());
+            out.print(GameMessages.NAME.getMessage());
             service.findByName(in.nextLine()).forEach(out::println);
         };
     }
 
     public MenuOption filterByCost() {
         return () -> {
-            out.println(GameMessages.MIN_COST.getMessage());
-            out.println(GameMessages.MAX_COST.getMessage());
+            out.print(GameMessages.MIN_COST.getMessage());
+            out.print(GameMessages.MAX_COST.getMessage());
             service.findByCostRange(Double.parseDouble(in.nextLine()), Double.parseDouble(in.nextLine())).forEach(out::println);
         };
     }
 
     public MenuOption filterByType() {
         return () -> {
-            out.println(GameMessages.TYPE.getMessage());
+            out.print(GameMessages.TYPE.getMessage());
             service.findByType(in.nextLine()).forEach(out::println);
         };
     }
 
     public MenuOption sortByCreationDate() {
-        return () -> {
-            service.sortByCreationDate().forEach(out::println);
-        };
+        return () -> service.sortByCreationDate().forEach(out::println);
     }
 }
