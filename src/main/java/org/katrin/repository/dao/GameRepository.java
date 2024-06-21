@@ -6,17 +6,17 @@ import org.katrin.exception.EntityInstanceDoesNotExist;
 import java.util.List;
 
 public interface GameRepository {
-    public Game add(Game game);
+    Game add(Game game);
 
-    public void deleteById(int id) throws EntityInstanceDoesNotExist;
+    void deleteById(int id) throws EntityInstanceDoesNotExist;
 
-    public List<Game> getByName(String name);
+    List<Game> getByName(String name);
 
-    public List<Game> getByCostRange(double min, double max);
+    List<Game> getByCostRange(double min, double max);
 
-    public List<Game> getByType(String type);
+    List<Game> getByType(String type);
 
-    public List<Game> sortByCreationDate();
+    List<Game> sortByCreationDate();
 
-    public List<Game> getAll();
+    List<Game> getAll();
 }

@@ -1,8 +1,8 @@
 package org.katrin.exception;
 
-import java.io.IOException;
+import java.sql.SQLException;
 
-public class ClientAlreadyExistsException extends IOException {
+public class ClientAlreadyExistsException extends SQLException {
     public ClientAlreadyExistsException(String message, Throwable cause) {
         super(message, cause);
     }

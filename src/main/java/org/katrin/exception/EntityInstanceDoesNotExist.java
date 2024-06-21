@@ -1,8 +1,8 @@
 package org.katrin.exception;
 
-import java.io.IOException;
+import java.sql.SQLException;
 
-public class EntityInstanceDoesNotExist extends IOException {
+public class EntityInstanceDoesNotExist extends SQLException {
     public EntityInstanceDoesNotExist(String message, Throwable cause){
         super(message, cause);
     }

@@ -46,6 +46,7 @@ public class Game {
     @CreationTimestamp
     private Date creationDate;
 
+    @Override
     public String toString() {
         return "id - " + id + ", name - " + name + ", type - " + type + ", release date - " + releaseDate +
                 ", rating - " + rating + ", cost - " + cost + ", description - " + description + ", creation date - "
